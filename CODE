@@ -1,0 +1,92 @@
+package principios.poo;
+
+/**
+ *
+ * @author Dayana
+ */
+public class PrincipiosPOO {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // Creamos una instancia de Usuario y llamamos al método notificar
+        Usuario usuario = new Usuario();
+        usuario.notificar();
+    }
+}
+
+class Usuario {
+    NotificadorEmail email;
+
+    Usuario() {
+        email = new NotificadorEmail();
+    }
+
+    void notificar() {
+        email.enviarEmail();
+    }
+}
+
+class NotificadorEmail {
+    void enviarEmail() {
+        System.out.println("Enviando email...");
+    }
+}
+
+
+
+
+
+
+
+package principios.poo;
+
+/**
+ *
+ * @author Dayana
+ */
+public class PrincipiosPOO {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // Puedes cambiar entre NotificadorEmail y NotificadorSMS
+        Notificador notificador = new NotificadorEmail(); // Puedes cambiar por new NotificadorSMS();
+        Usuario usuario = new Usuario(notificador);
+        usuario.notificar();
+    }
+}
+
+// Interfaz que representa la abstracción
+interface Notificador {
+    void enviarNotificacion();
+}
+
+// Clase concreta que implementa la notificación por email
+class NotificadorEmail implements Notificador {
+    public void enviarNotificacion() {
+        System.out.println("Enviando email...");
+    }
+}
+
+// Clase concreta que implementa la notificación por SMS
+class NotificadorSMS implements Notificador {
+    public void enviarNotificacion() {
+        System.out.println("Enviando SMS...");
+    }
+}
+
+// Clase Usuario que utiliza la interfaz Notificador
+class Usuario {
+    private Notificador notificador;
+
+    Usuario(Notificador notificador) {
+        this.notificador = notificador;
+    }
+
+    void notificar() {
+        notificador.enviarNotificacion();
+    }
+}
